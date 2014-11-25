@@ -38,6 +38,12 @@ class Data(object):
             rows.add(row)
         return rows
 
+    def normalized(self):
+        valuelst = [value for value, row, col in self.get()]
+        maxvalue = float(max(valuelst))
+        data = [ (value/maxvalue , row,col) for value, row, col in self.get()]
+        self.set(data)
+
     def groupbykey(self,isrow = True):
         groupdict = {}
         if isrow:
@@ -105,9 +111,9 @@ class Data(object):
                     pass
             else:
                 if format.has_key('value'):
-                    value = 1
-                else:
                     value = data[format['value']]
+                else:
+                    value = 1
                 if format.has_key('row'):
                     row_id = data[format['row']]
                 else:

@@ -17,6 +17,7 @@ class ItemBased(Algorithm):
 
     def compute(self, num=50):
         super(ItemBased, self).compute()
+        self._data.normalized()
         userdict = self.get_data().groupbykey(isrow = False)
         itemset = list(self.get_data().get_rows())
         itemset.sort()
@@ -30,8 +31,8 @@ class ItemBased(Algorithm):
                     simvalue = min(1,max(simvalue,0))
                     itemsimilarity_matrix.set_entry_named(item1,item2,simvalue + orgsim)
         self.itemTop = {}
-        for item in itemsimilarity_matrix.row_labels():
-            vector = itemsimilarity_matrix.row_named(item).items()
+        for item in itemsimilarity_matrix.row_labels:
+            vector = itemsimilarity_matrix.row_named(item).to_dict().items()
             vector.sort(key = lambda x:x[1],reverse=True)
             self.itemTop[item] = vector[:num]
         self.userTop = {}
@@ -40,7 +41,7 @@ class ItemBased(Algorithm):
             lst = userdict.get(user,[])
             for item in lst:
                 itemlst = self.itemTop.get(item[0])
-                itemlst = [[item,value * item[1]] for item, value in itemlst]
+                itemlst = [[i,v * item[1]] for i, v in itemlst]
                 vector.extend(itemlst)
             vector.sort(key = lambda x:x[1],reverse=True)
             self.userTop[user] = vector[:num]

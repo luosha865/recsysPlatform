@@ -44,11 +44,9 @@ def test_svd(train,test,data):
     value = RMSE(r_info).compute()
     print value
 
-data = Data()
-data.load_file(path='../../data/movielens/ratings.dat',sep='::'
-          , format={'col':0, 'row':1,'value':2, 'ids': int})
 
-print len(data._data)
+
+
 
 def test_itembased(train,test,data):
     itembased = ItemBased()
@@ -61,7 +59,11 @@ def test_itembased(train,test,data):
     print itembased.recommend(ITEMID)
 
 
-train,test = data.split_train_test()
+data = Data()
+data.load_file(path='../../data/ratings.dat',sep='::'
+          , format={'col':0, 'row':1,'value':2, 'ids': int})
+print len(data.get())
+train,test = data.split_train_test(percent = 100)
 #test_svd(train,test,data)
 test_itembased(train,test,data)
 

@@ -42,6 +42,8 @@ class Algorithm(object):
             raise ValueError('No data set. Matrix is empty!')
 
 
+
+
 class MatrixAlgorithm(Algorithm):
     def __init__(self):
         super(MatrixAlgorithm, self).__init__()
