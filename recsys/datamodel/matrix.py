@@ -73,7 +73,7 @@ class SparseMatrix(Matrix):
     def __init__(self):
         super(SparseMatrix, self).__init__()
 
-    def create(self, data):
+    def create(self,info, data = None):
         values = map(itemgetter(0), data)
         rows = map(itemgetter(1), data)
         cols = map(itemgetter(2), data)

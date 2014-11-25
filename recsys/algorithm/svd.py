@@ -8,9 +8,9 @@ from numpy import loads, mean, sum, nan
 from operator import itemgetter
 
 from recsys.datamodel.matrix import SimilarityMatrix
-from recsys.algorithm.baseclass import Algorithm
+from recsys.algorithm.baseclass import MatrixAlgorithm
 
-class SVD(Algorithm):
+class SVD(MatrixAlgorithm):
 
     def __init__(self, filename=None):
         super(SVD, self).__init__()

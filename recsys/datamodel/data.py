@@ -26,6 +26,33 @@ class Data(object):
             return self._data[i]
         return None
 
+    def get_cols(self):
+        cols = set()
+        for value, row, col in self.get():
+            cols.add(col)
+        return cols
+
+    def get_rows(self):
+        rows = set()
+        for value, row, col in self.get():
+            rows.add(row)
+        return rows
+
+    def groupbykey(self,isrow = True):
+        groupdict = {}
+        if isrow:
+            for value, row, col in self.get():
+                dict = groupdict.get(row,[])
+                dict.append([col,value])
+                groupdict[row] = dict
+        else:
+            for value, row, col in self.get():
+                dict = groupdict.get(col,[])
+                dict.append([row,value])
+                groupdict[col] = dict
+
+        return groupdict
+
     def get(self):
         return self._data
 
@@ -52,7 +79,7 @@ class Data(object):
 
     def add_tuple(self,tuple):
         if not len(tuple) == 3:
-            raise ValueError('Tuple format not correct (should be: <value, row_id, col_id>)')
+            raise ValueError('Tuple format not correct (should be: <value, row_id, col_id>)') #value,item,user
         value, row_id, col_id = tuple
         if not value and value != 0:
             raise ValueError('Value is empty %s' % (tuple,))
